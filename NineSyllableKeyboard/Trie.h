@@ -60,16 +60,11 @@ public:
 
     // 获取首选字符串（每个前缀对应一个特定字符串）
     std::string get_preferred_string(const std::string& digit_sequence, bool& is_valid);
-    std::string get_best_match_for_prefix(const std::string& digit_sequence, int length);
 
     // 逐步搜索并显示结果
     void progressive_search(const std::string& digit_sequence);
 
-    // 将数字序列转换为可能的字符串
-    std::string digits_to_string(const std::string& digits, int length);
-
-    // 获取指定数字序列长度的所有可能匹配
-    std::vector<std::pair<std::string, int>> get_matches_for_length(const std::string& digit_sequence, int length);
+   
 
 private:
     TrieNode* root;
@@ -92,10 +87,7 @@ private:
 
     // 删除单词的辅助函数
     bool delete_helper(TrieNode* node, const std::string& word, int depth, int count);
-    void collect_matches(TrieNode* node, const std::string& current,std::vector<std::pair<std::string, int>>& results);
-
-    // 获取数字对应的所有可能字符
-    std::vector<char> get_chars_for_digit(char digit);
+    
 
 };
 
