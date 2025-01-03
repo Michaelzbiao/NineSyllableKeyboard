@@ -6,11 +6,12 @@
 
 // 字典树节点定义
 struct TrieNode {
-    std::unordered_map<char, TrieNode*> children; // 子节点
-    bool is_end;                                  // 是否为单词结尾
-    int count;                                    // 输入次数
+    bool is_end;
+    int prefix_count; // 记录经过该节点的前缀次数
+    int word_count;   // 记录以该节点为末尾的单词的输入次数
+    std::unordered_map<char, TrieNode*> children;
 
-    TrieNode() : is_end(false), count(0) {}
+    TrieNode() : is_end(false), prefix_count(0), word_count(0) {}
 };
 
 #endif // TRIENODE_H
