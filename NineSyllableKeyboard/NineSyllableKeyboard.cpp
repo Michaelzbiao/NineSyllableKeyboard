@@ -55,7 +55,7 @@ void modify_word_menu(Trie& trie) {
     std::getline(std::cin, count_str);
     try {
         new_count = std::stoi(count_str);
-        if (new_count <=0) throw std::invalid_argument("非正数");
+        if (new_count <= 0) throw std::invalid_argument("非正数");
         trie.modify(word, new_count);
     }
     catch (std::invalid_argument&) {
@@ -106,7 +106,9 @@ void regex_search_menu(Trie& trie) {
     }
 
     // 获取匹配结果并去重
-    auto results = trie.match_regex(pattern);
+    // 对外暴露的正则匹配接口
+    std::vector<std::pair<std::string, int>> results;
+    trie.regex_dfs(trie.root, pattern, 0, "", results);
     if (results.empty()) {
         std::cout << "没有找到符合该正则表达式的单词。\n";
         return;
@@ -150,12 +152,12 @@ void get_count_menu(Trie& trie) {
     std::cout << "请输入要查询的单词: ";
     std::string word;
     std::getline(std::cin, word);
-	for (char& c : word) {
+    for (char& c : word) {
         if (KEYMAP.find(c) == KEYMAP.end()) {
             std::cerr << "请重新输入合法字符串（仅包含英文字符） " << std::endl;
             return;
         }
-	}
+    }
     int count = trie.get_count_of_word(word);
     if (count < 0) {
         std::cout << "单词 \"" << word << "\" 不存在于输入法中。\n";
